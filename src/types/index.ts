@@ -40,6 +40,7 @@ export interface GridCell {
 
 export interface ConflictInfo {
   cell: GridCell;
+  weekOffset: number;
   existingEntry: ScheduleEntry;
   newTeacherId: string;
   newCourseId: string;

@@ -24,7 +24,7 @@ function GridCellComponent({
   selectedCourseId: string | null;
   onRemoveEntry: (entryId: string) => void;
 }) {
-  const cellId = `cell-${cell.dayOfWeek}-${cell.timeSlotId}-${weekOffset}`;
+  const cellId = `cell-${cell.dayOfWeek}-${cell.timeSlotId}-${weekOffset >= 0 ? weekOffset : `n${Math.abs(weekOffset)}`}`;
   const { isOver, setNodeRef } = useDroppable({
     id: cellId,
     data: {

@@ -33,6 +33,7 @@ export function useSchedule() {
       if (existingEntry && !overwrite) {
         setConflictInfo({
           cell,
+          weekOffset: currentWeekOffset,
           existingEntry,
           newTeacherId: teacherId,
           newCourseId: courseId,
@@ -80,14 +81,14 @@ export function useSchedule() {
           conflictInfo.newTeacherId,
           conflictInfo.newCourseId,
           conflictInfo.cell,
-          weekOffset,
+          conflictInfo.weekOffset,
           true
         );
       }
 
       setConflictInfo(null);
     },
-    [conflictInfo, weekOffset, addSchedule]
+    [conflictInfo, addSchedule]
   );
 
   const getTeacherWeeklyHours = useCallback(

@@ -36,9 +36,9 @@ function App() {
       if (!over) return;
 
       const activeId = active.id as string;
-      const overId = over.id as string;
+      const overData = over.data.current;
 
-      if (!activeId.startsWith('teacher-') || !overId.startsWith('cell-')) {
+      if (!activeId.startsWith('teacher-') || !overData || overData.type !== 'grid-cell') {
         return;
       }
 
@@ -46,15 +46,15 @@ function App() {
       const teacher = teachers.find((t) => t.id === teacherId);
       if (!teacher) return;
 
-      const cellParts = overId.split('-');
-      const dayOfWeek = parseInt(cellParts[1], 10);
-      const timeSlotId = cellParts[2];
-      const entryWeekOffset = parseInt(cellParts[3], 10);
+      const { cell, weekOffset: entryWeekOffset } = overData as {
+        cell: { dayOfWeek: number; timeSlotId: string };
+        weekOffset: number;
+      };
 
       addSchedule(
         teacherId,
         teacher.courses[0],
-        { dayOfWeek, timeSlotId },
+        cell,
         entryWeekOffset
       );
     },
